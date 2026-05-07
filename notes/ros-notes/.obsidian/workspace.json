@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "teoría/Nodos-python.md",
+                "file": "teoría/T02 - Creación de nodos python.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Nodos-python"
+              "title": "T02 - Creación de nodos python"
             }
           }
         ],
@@ -186,8 +186,9 @@
   },
   "active": "f4828834b3c85f95",
   "lastOpenFiles": [
+    "teoría/T03 - Topics, publishers y subscribers.md",
     "Ejercicios.md",
-    "teoría/Nodos-python.md",
+    "teoría/T02 - Creación de nodos python.md",
     "teoría/T01 - Workspaces, nodos y tareas periódicas.md",
     "old/01 - Nodos.md",
     "old/00 - Configuración del entorno.md",

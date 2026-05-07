@@ -77,7 +77,7 @@ class SimpleLogger(Node):
 
 --------------------------------------------------------------------------------
 
-## 4. El Ciclo de Vida del Nodo: Inicialización, Spin y Executor
+## 4. Ciclo de Vida de un Nodo - Inicialización, Spin y Executor
 
 Un nodo no es solo un script; es un proceso gestionado que pasa por tres fases fundamentales:
 
@@ -106,7 +106,7 @@ entry_points={
 
 _(Sintaxis: 'nombre_ejecutable = paquete.archivo:función_main')_
 
-Tras el registro, el flujo de trabajo del arquitecto es innegociable:
+Tras el registro, el flujo de trabajo es:
 
 1. **Compilación:** `colcon build --packages-select br2_basics` en la raíz del workspace.
 2. **Activación:** `source install/setup.bash`. Este paso es crítico para que la terminal actual conozca la ubicación de los nuevos binarios y el sistema de autocompletado funcione.
@@ -175,134 +175,3 @@ Crear un nodo es el primer paso para dominar la arquitectura de un robot. Antes 
 - [ ] **Depuración:** ¿Se visualizan los logs correctamente en `rqt_console`?
 
 Dominar estas herramientas es solo el comienzo. Como señala Francisco Martín Rico en su obra de 2025: **"The true robotics surge when utilizing this infrastructure to give life to intelligent behaviors."** (La verdadera robótica surge cuando se utiliza esta infraestructura para dar vida a comportamientos inteligentes). Bienvenido al fascinante camino de la integración robótica.
-
----
-
-# Guía Teórica: Fundamentos de ROS 2 para Nodos y Tareas Periódicas
-
-Esta guía define el marco conceptual y la sintaxis estricta necesaria para crear espacios de trabajo, paquetes y nodos en ROS 2 utilizando Python (`rclpy`).
-
-## 1. Arquitectura de ROS 2
-
-ROS 2 utiliza un grafo de red para la comunicación entre procesos.
-
-- **Nodos:** Unidad fundamental de ejecución. Cada nodo realiza una tarea específica.
-    
-- **rclpy:** Biblioteca cliente oficial para Python. Proporciona la interfaz para interactuar con la red ROS.
-    
-
-## 2. Espacio de Trabajo (Workspace) y Entorno
-
-El código debe organizarse en una estructura estricta para que el sistema de compilación (`colcon`) lo procese.
-
-**Estructura base:**
-
-- `src/`: Directorio exclusivo para el código fuente.
-    
-- `build/`, `install/`, `log/`: Generados automáticamente al compilar.
-    
-
-**Sourcing (Carga del entorno):** El terminal necesita conocer las rutas de los binarios de ROS 2.
-
-- Global: `source /opt/ros/<distribucion>/setup.bash`
-    
-- Local (tras compilar): `source install/setup.bash`
-    
-
-## 3. Paquetes Python (`ament_python`)
-
-Un paquete encapsula el código. Se crea con la CLI de ROS 2 desde el directorio `src/`:
-
-```
-ros2 pkg create --build-type ament_python <nombre_paquete>
-```
-
-Archivos generados:
-
-- `package.xml`: Metadatos y dependencias.
-    
-- `setup.py`: Configuración de instalación y definición de ejecutables.
-    
-- `<nombre_paquete>/`: Carpeta interna (mismo nombre que el paquete) donde se alojan los scripts `.py`.
-    
-
-## 4. Estructura Obligatoria de un Nodo Python
-
-Todo nodo requiere un ciclo de vida definido: inicialización de la red, instanciación de la clase, bloqueo de ejecución (spin) y apagado.
-
-**Plantilla base (ejemplo genérico):**
-
-```
-import rclpy
-from rclpy.node import Node
-
-# La clase hereda de Node
-class MiNodoGenerico(Node):
-    def __init__(self):
-        # 1. Inicializa el nodo con un nombre único en la red
-        super().__init__('nombre_del_nodo_en_red')
-        
-        # 2. Configuración inicial (Timers, Publishers, etc.)
-        # Ejemplo de logging básico:
-        self.get_logger().info("Nodo inicializado correctamente.")
-
-def main(args=None):
-    # 1. Inicializa la comunicación ROS
-    rclpy.init(args=args)
-    
-    # 2. Instancia la clase del nodo
-    nodo = MiNodoGenerico()
-    
-    # 3. Pausa la ejecución aquí. Mantiene el nodo vivo procesando eventos.
-    rclpy.spin(nodo)
-    
-    # 4. Secuencia de apagado (se ejecuta al presionar Ctrl+C)
-    nodo.destroy_node()
-    rclpy.shutdown()
-
-if __name__ == '__main__':
-    main()
-```
-
-## 5. Temporizadores (Timers) y Ejecución No Bloqueante
-
-Para tareas periódicas (lectura de hardware), se usan Timers en lugar de bucles `while` con `sleep()`. Esto evita bloquear el hilo principal.
-
-**Sintaxis dentro del `__init__` de la clase:**
-
-```
-# Crea un timer que llama a un callback cada X segundos
-self.timer = self.create_timer(periodo_en_segundos, self.funcion_callback)
-```
-
-**Sintaxis del callback (dentro de la clase):**
-
-```
-def funcion_callback(self):
-    self.get_logger().info("Ejecutando tarea periódica.")
-```
-
-## 6. Registro del Ejecutable en `setup.py`
-
-Crear el archivo `.py` no es suficiente. `colcon` necesita saber qué scripts deben convertirse en comandos de terminal. Esto se define en el archivo `setup.py` del paquete.
-
-Localiza el diccionario `entry_points` y añade la ruta a la función `main` de tu script:
-
-```
-entry_points={
-    'console_scripts': [
-        # Sintaxis: 'comando_terminal = carpeta_paquete.nombre_archivo:main'
-        'mi_ejecutable = nombre_paquete.nombre_archivo:main'
-    ],
-},
-```
-
-## 7. Compilación y Ejecución
-
-Secuencia de comandos requerida en la raíz del workspace:
-
-1. **Compilar:** `colcon build`
-    
-2. **Cargar entorno:** `source install/setup.bash`
-    
-3. **Ejecutar nodo:** `ros2 run <nombre_paquete> <comando_terminal>`
