@@ -64,7 +64,7 @@ int modbus_wr(modbus_t *ctx, int addr, uint16_t * data, int count);
 int modbus_rd(modbus_t *ctx, int addr, uint16_t * data, int count);
 
 int main(int argc, char *argv[]) {
-    char serialport[16] = "/dev/ttyUSB0";
+    char serialport[16] = "/dev/ttyV0"; // Originalmente tenía el usb0
     int baudrate = 115200;
     modbus_t *ctx = NULL;
     int serialport_opt = 0;
