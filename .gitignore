@@ -28,6 +28,9 @@ venv/
 *.so.*
 *.dylib
 *.dll
+src/bluepill-sim/chacras_slave
+src/bluepill-sim/chacras_state.json
+src/bluepill-sim/modbus_client/chacras
 
 # IDEs y Editores
 .vscode/
