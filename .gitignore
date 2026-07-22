@@ -45,3 +45,6 @@ src/bluepill-sim/modbus_client/chacras
 *.dtmp
 .DS_Store
 compile_commands.json
+# Artefactos de build de referencias de terceros
+references/chacras-original-2022/Debug/
+references/chacras-original-2022/Simulink/slprj/
