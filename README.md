@@ -112,8 +112,8 @@ gcc -o chacras chacras.c -lmodbus
     ./init_sim.sh
     ```
 
-    >[!NOTE]
-    > En el caso de usar la simulación, en el archivo `src/chacras_driver/config/chacras_params.yaml` debe configurarse como puerto `/tmp/ttyV0`. En el caso de usar la blue pill, debe configurarse con el puerto en el que se haya conectado.
+> [!NOTE]
+> En el caso de usar la simulación, en el archivo `src/chacras_driver/config/chacras_params.yaml` debe configurarse como puerto `/tmp/ttyV0`. En el caso de usar la blue pill, debe configurarse con el puerto en el que se haya conectado.
 
 2. En otra terminal, levantar el driver de ROS2:
 
