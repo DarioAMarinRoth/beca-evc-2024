@@ -1,0 +1,5 @@
+/**:
+  ros__parameters:
+    port: /tmp/ttyV0
+    baudrate: 115200
+    refresh_period_ms: 75

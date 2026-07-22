@@ -1,0 +1,3 @@
+float32 corriente_bateria
+float32 tension_bateria
+bool armado
