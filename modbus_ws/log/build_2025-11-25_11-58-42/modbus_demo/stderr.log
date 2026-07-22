@@ -1,4 +1,0 @@
-[31mCMake Error at CMakeLists.txt:27 (install):
-  install PROGRAMS given RENAME option with more than one file.
-
-[0m

@@ -1,4 +1,43 @@
-build
+# ROS 2 / Colcon
+build/
+install/
+log/
+.colcon/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.env
+env/
+venv/
+.tox/
+
+# C / C++
+*.o
+*.ko
+*.obj
+*.elf
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+
+# IDEs y Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.bak
+
+# Misc
 *.bkp
 *.dtmp
 .DS_Store

@@ -1,5 +1,0 @@
-uint16 address
-uint16 count
----
-int32[] values
-int32 error
