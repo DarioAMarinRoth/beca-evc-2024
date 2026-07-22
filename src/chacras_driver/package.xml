@@ -3,9 +3,13 @@
 <package format="3">
   <name>chacras_driver</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Driver ROS2 para comunicación Modbus RTU con el robot 4WD (lectura de estado, comandos de velocidad, armado/desarmado).</description>
   <maintainer email="dariomarinroth@gmail.com">dario</maintainer>
-  <license>TODO: License declaration</license>
+  <license>Uso institucional — Universidad Nacional del Comahue (sin licencia de distribución pública)</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>chacras_interfaces</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

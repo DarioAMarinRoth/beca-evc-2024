@@ -20,8 +20,8 @@ setup(
     zip_safe=True,
     maintainer='dario',
     maintainer_email='dariomarinroth@gmail.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='Driver ROS2 para comunicación Modbus RTU con el robot 4WD (lectura de estado, comandos de velocidad, armado/desarmado).',
+    license='Uso institucional — Universidad Nacional del Comahue (sin licencia de distribución pública)',
     extras_require={
         'test': [
             'pytest',
